@@ -1,0 +1,8 @@
+- id: env-files.world-readable
+  severity: REVIEW
+  paths: ["~/.claude/CLAUDE.md"]
+  match:
+    type: regex
+    pattern: '!\[.*\]\(https?://[^)]+\)|<img\s+src="https?://'
+  message: "CLAUDE.md includes external URL (image or link include) — second prompt-surface risk"
+  remediation: "Avoid loading external content into CLAUDE.md; inline trusted snippets instead"

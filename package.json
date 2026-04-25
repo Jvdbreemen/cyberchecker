@@ -1,0 +1,58 @@
+{
+  "name": "cyberchecker",
+  "version": "0.1.0",
+  "description": "AI/MCP/package security auditor wrapping AgentSeal with author-trust scoring and verdict mapping",
+  "type": "module",
+  "bin": {
+    "cyberchecker": "./dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src/hardening-rules",
+    "src/ci-rules",
+    "skills",
+    ".claude-plugin",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup src/cli.ts src/index.ts --format esm --dts --clean",
+    "dev": "tsup src/cli.ts src/index.ts --format esm --dts --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": ["security", "ai", "mcp", "claude-code", "audit", "prompt-injection"],
+  "author": "Jim van den Breemen",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "peerDependencies": {
+    "agentseal": ">=0.1.0"
+  },
+  "peerDependenciesMeta": {
+    "agentseal": { "optional": true }
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "octokit": "^4.0.2",
+    "picocolors": "^1.1.1",
+    "yaml": "^2.6.1",
+    "tar": "^7.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "@types/tar": "^6.1.13",
+    "tsup": "^8.3.5",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.5"
+  }
+}

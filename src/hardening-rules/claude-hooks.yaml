@@ -1,0 +1,17 @@
+- id: claude-hooks.unsafe-eval
+  severity: ALERT
+  paths: ["~/.claude/settings.json"]
+  match:
+    type: regex
+    pattern: 'bash\s+-c\s+"\$[A-Z_]+"|eval\s+"\$[A-Z_]+"'
+  message: "Hook executes unvalidated shell variable"
+  remediation: "Validate input or use a literal command"
+
+- id: claude-hooks.fetch-and-pipe
+  severity: CRITICAL
+  paths: ["~/.claude/settings.json"]
+  match:
+    type: regex
+    pattern: '(curl|wget)[^|]*\|\s*(bash|sh|python|node)'
+  message: "Hook fetches remote content and pipes to interpreter"
+  remediation: "Never pipe network content to a shell; download and inspect first"

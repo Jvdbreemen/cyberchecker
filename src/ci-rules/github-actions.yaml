@@ -1,0 +1,46 @@
+- id: ci.permissions-missing
+  severity: ALERT
+  message: "Workflow has no permissions block; defaults to write-all"
+  remediation: "Add `permissions: read-all` at top level"
+  match:
+    type: workflow-missing-key
+    key: permissions
+
+- id: ci.permissions-write-all
+  severity: CRITICAL
+  message: "Workflow grants write-all permissions"
+  remediation: "Use minimal scoped permissions"
+  match:
+    type: workflow-value-equals
+    key: permissions
+    value: write-all
+
+- id: ci.trigger-pull-request-target
+  severity: CRITICAL
+  message: "Trigger pull_request_target without actor filter"
+  remediation: "Use pull_request, or guard with if: github.actor == ..."
+  match:
+    type: workflow-trigger-without-filter
+    trigger: pull_request_target
+
+- id: ci.trigger-issue-comment
+  severity: CRITICAL
+  message: "Trigger issue_comment without actor filter"
+  remediation: "Filter on github.event.comment.author_association == 'OWNER' or similar"
+  match:
+    type: workflow-trigger-without-filter
+    trigger: issue_comment
+
+- id: ci.harden-runner-missing
+  severity: ALERT
+  message: "Job uses secrets but no harden-runner step"
+  remediation: "Add step-security/harden-runner@v2 with audit or block egress mode"
+  match:
+    type: workflow-secrets-without-harden
+
+- id: ci.claude-action-no-allowed-tools
+  severity: ALERT
+  message: "anthropics/claude-code-action used without allowedTools restriction"
+  remediation: "Add allowedTools input to limit available tools per role"
+  match:
+    type: workflow-claude-action-unrestricted

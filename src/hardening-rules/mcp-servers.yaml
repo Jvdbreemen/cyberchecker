@@ -1,0 +1,9 @@
+- id: mcp-servers.unpinned-version
+  severity: REVIEW
+  paths: ["~/.claude/settings.json", "~/.claude/settings.local.json"]
+  match:
+    type: jsonpath
+    expr: "$.mcpServers[*].args[*]"
+    pattern: "@latest$|^[^@]+$"
+  message: "MCP server is not version-pinned (uses @latest or no version)"
+  remediation: "Pin to a specific version to mitigate supply-chain rug-pulls"

@@ -1,0 +1,29 @@
+- id: claude-settings.bash-wildcard
+  severity: ALERT
+  paths: ["~/.claude/settings.json", "~/.claude/settings.local.json"]
+  match:
+    type: jsonpath
+    expr: "$.permissions.allow[*]"
+    pattern: "^Bash\\(\\*\\)$|^Bash$"
+  message: "Wildcard Bash permission grants unrestricted shell access"
+  remediation: "Scope to specific commands, e.g. Bash(git status:*)"
+
+- id: claude-settings.webfetch-wildcard
+  severity: ALERT
+  paths: ["~/.claude/settings.json", "~/.claude/settings.local.json"]
+  match:
+    type: jsonpath
+    expr: "$.permissions.allow[*]"
+    pattern: "^WebFetch\\(\\*\\)$|^WebFetch$"
+  message: "Wildcard WebFetch permission allows arbitrary outbound HTTP"
+  remediation: "Restrict to specific domains, e.g. WebFetch(https://docs.anthropic.com/*)"
+
+- id: claude-settings.mcp-env-token-plaintext
+  severity: CRITICAL
+  paths: ["~/.claude/settings.json", "~/.claude/settings.local.json"]
+  match:
+    type: jsonpath
+    expr: "$.mcpServers[*].env[*]"
+    pattern: ".+"
+  message: "MCP server env variable likely contains plaintext token (any non-empty value flagged for review)"
+  remediation: "Use env-file references or OS keychain instead of plaintext in settings.json"

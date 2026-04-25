@@ -1,0 +1,9 @@
+{
+  "name": "cyberchecker",
+  "version": "0.1.0",
+  "description": "AI/MCP/package security auditor for Claude Code",
+  "author": "Jim van den Breemen",
+  "license": "MIT",
+  "homepage": "https://github.com/Jvdbreemen/cyberchecker",
+  "skills": ["./skills/cyberchecker"]
+}
