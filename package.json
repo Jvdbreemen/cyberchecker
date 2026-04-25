@@ -4,7 +4,7 @@
   "description": "AI/MCP/package security auditor wrapping AgentSeal with author-trust scoring and verdict mapping",
   "type": "module",
   "bin": {
-    "cyberchecker": "./dist/cli.js"
+    "cyberchecker": "dist/cli.js"
   },
   "exports": {
     ".": {
@@ -29,7 +29,14 @@
     "lint": "tsc --noEmit",
     "prepublishOnly": "npm run build"
   },
-  "keywords": ["security", "ai", "mcp", "claude-code", "audit", "prompt-injection"],
+  "keywords": [
+    "security",
+    "ai",
+    "mcp",
+    "claude-code",
+    "audit",
+    "prompt-injection"
+  ],
   "author": "Jim van den Breemen",
   "license": "MIT",
   "engines": {
@@ -39,7 +46,9 @@
     "agentseal": ">=0.1.0"
   },
   "peerDependenciesMeta": {
-    "agentseal": { "optional": true }
+    "agentseal": {
+      "optional": true
+    }
   },
   "dependencies": {
     "commander": "^12.1.0",
